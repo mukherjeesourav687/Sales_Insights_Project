@@ -1,12 +1,12 @@
-````md
 # Sales Insights Data Analysis Project
 
 ## Data Analysis Using SQL
 
 ### Show all customer records
+
 ```sql
 SELECT * FROM customers;
-````
+
 
 ### Show total number of customers
 
@@ -99,6 +99,5 @@ WHERE d.year = 2020
 )
 ```
 
-```
 
 
