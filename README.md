@@ -1,5 +1,5 @@
 ## Sales Insights Data Analysis Project
-#Data Analysis Using SQL
+Data Analysis Using SQL
 Show all customer records
 
 SELECT * FROM customers;
