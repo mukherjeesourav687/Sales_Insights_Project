@@ -1,42 +1,104 @@
-## Sales Insights Data Analysis Project
-Data Analysis Using SQL
-Show all customer records
+````md
+# Sales Insights Data Analysis Project
 
+## Data Analysis Using SQL
+
+### Show all customer records
+```sql
 SELECT * FROM customers;
+````
 
-Show total number of customers
+### Show total number of customers
 
-SELECT count(*) FROM customers;
+```sql
+SELECT COUNT(*) FROM customers;
+```
 
-Show transactions for Chennai market (market code for chennai is Mark001
+### Show transactions for Chennai market (market code for Chennai is Mark001)
 
-SELECT * FROM transactions where market_code='Mark001';
+```sql
+SELECT * 
+FROM transactions 
+WHERE market_code = 'Mark001';
+```
 
-Show distrinct product codes that were sold in chennai
+### Show distinct product codes that were sold in Chennai
 
-SELECT distinct product_code FROM transactions where market_code='Mark001';
+```sql
+SELECT DISTINCT product_code 
+FROM transactions 
+WHERE market_code = 'Mark001';
+```
 
-Show transactions where currency is US dollars
+### Show transactions where currency is US Dollars
 
-SELECT * from transactions where currency="USD"
+```sql
+SELECT * 
+FROM transactions 
+WHERE currency = 'USD';
+```
 
-Show transactions in 2020 join by date table
+### Show transactions in 2020 (joined with date table)
 
-SELECT transactions.*, date.* FROM transactions INNER JOIN date ON transactions.order_date=date.date where date.year=2020;
+```sql
+SELECT t.*, d.*
+FROM transactions t
+INNER JOIN date d 
+    ON t.order_date = d.date
+WHERE d.year = 2020;
+```
 
-Show total revenue in year 2020,
+### Show total revenue in year 2020 (INR + USD)
 
-SELECT SUM(transactions.sales_amount) FROM transactions INNER JOIN date ON transactions.order_date=date.date where date.year=2020 and transactions.currency="INR\r" or transactions.currency="USD\r";
+```sql
+SELECT SUM(t.sales_amount)
+FROM transactions t
+INNER JOIN date d 
+    ON t.order_date = d.date
+WHERE d.year = 2020
+  AND (t.currency = 'INR' OR t.currency = 'USD');
+```
 
-Show total revenue in year 2020, January Month,
+### Show total revenue in January 2020
 
-SELECT SUM(transactions.sales_amount) FROM transactions INNER JOIN date ON transactions.order_date=date.date where date.year=2020 and and date.month_name="January" and (transactions.currency="INR\r" or transactions.currency="USD\r");
+```sql
+SELECT SUM(t.sales_amount)
+FROM transactions t
+INNER JOIN date d 
+    ON t.order_date = d.date
+WHERE d.year = 2020
+  AND d.month_name = 'January'
+  AND (t.currency = 'INR' OR t.currency = 'USD');
+```
 
-Show total revenue in year 2020 in Chennai
+### Show total revenue in year 2020 in Chennai
 
-SELECT SUM(transactions.sales_amount) FROM transactions INNER JOIN date ON transactions.order_date=date.date where date.year=2020 and transactions.market_code="Mark001";
+```sql
+SELECT SUM(t.sales_amount)
+FROM transactions t
+INNER JOIN date d 
+    ON t.order_date = d.date
+WHERE d.year = 2020
+  AND t.market_code = 'Mark001';
+```
 
-Data Analysis Using Power BI
+---
 
-Formula to create norm_amount column
-= Table.AddColumn(#"Filtered Rows", "norm_amount", each if [currency] = "USD" or [currency] ="USD#(cr)" then [sales_amount]*75 else [sales_amount], type any)
+## Data Analysis Using Power BI
+
+### Formula to create norm_amount column
+
+```m
+= Table.AddColumn(
+    #"Filtered Rows",
+    "norm_amount",
+    each if [currency] = "USD" or [currency] = "USD#(cr)" 
+         then [sales_amount] * 75 
+         else [sales_amount],
+    type any
+)
+```
+
+```
+
+
